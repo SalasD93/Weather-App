@@ -9,7 +9,7 @@ $(container).addClass("container");
 var rowDiv = document.createElement('div');
 $(rowDiv).addClass("row");
 var colDiv = document.createElement('div');
-$(colDiv).addClass("col-sm-4");
+$(colDiv).addClass("col-sm-3");
 var cityRowDiv = document.createElement('div');
 $(cityRowDiv).addClass("row");
 var citySearchColDiv = document.createElement('div');
@@ -22,7 +22,7 @@ var cityList = document.createElement("div");
 $(cityList).attr('id', "cities");
 $(cityList).attr('style', "border: 5px solid blue; padding: 20px;");
 var colDivDiv = document.createElement('div');
-$(colDivDiv).addClass("col-sm-8");
+$(colDivDiv).addClass("col-sm-9");
 var displayRowDiv = document.createElement('div');
 // $(displayRowDiv).attr('style', `background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Burning_Yellow_Sunset.jpg/320px-Burning_Yellow_Sunset.jpg)`);
 $(displayRowDiv).addClass("row");
@@ -93,11 +93,10 @@ async function getData() {
     // const currentDT = weather.current.dt;
     // const currentDTSet = localStorage.setItem("current", currentDT);
 
-    // need an array that stores 5 day forecast info and creates each weather card
-        //date, icon, temp, wind, humidity
-        // need to convert dt to date format
+        // This loops through daily array for first 5 items / creates weather cards / displays relevant information
         for (var i = 0; i < 5; i++) {
             const daily = weather.daily;
+            // This converts unix date to standard date
             const date = moment.unix(daily[i].dt).format("MM/DD/YYYY");
             console.log(date);
             const icon = daily[i].weather[0].icon;
@@ -115,23 +114,28 @@ async function getData() {
             // $(weatherCard).attr('style', "height: 250px");
             $(weatherCard).addClass("card col-sm-2");
             $(displayCardRowDiv).append(weatherCard);
-            var headerDate = document.createElement('h6');
+            var headerDate = document.createElement('h5');
             $(headerDate).text(date);
+            $(headerDate).attr('style', "align-self: center");
             $(weatherCard).append(headerDate);
             var iconImg = document.createElement('img');
             $(iconImg).attr('src', iconUrl);
+            $(iconImg).attr('width', "50%");
+            $(iconImg).attr('height', "50%");
             // use similar attr for height and for width
             $(weatherCard).append(iconImg);
             var dispTemp = document.createElement('p');
-            $(dispTemp).text(temp + '°F');
+            $(dispTemp).text('Temp: ' + temp + '°F');
+            $(dispTemp).attr('style', "font-size: .9rem");
             $(weatherCard).append(dispTemp);
             var dispWind = document.createElement('p');
-            $(dispWind).text(windSpeed + 'MPH');
+            $(dispWind).text('Wind: ' + windSpeed + 'MPH');
+            $(dispWind).attr('style', "font-size: .9rem");
             $(weatherCard).append(dispWind);
             var dispHumidity = document.createElement('p');
-            $(dispHumidity).text(humidity + '%');
+            $(dispHumidity).text('Humidity: ' + humidity + '%');
+            $(dispHumidity).attr('style', "font-size: .9rem");
             $(weatherCard).append(dispHumidity);
         }
-    // const cardArray = [daily[0].dt, daily[0].weather.icon, daily[0].temp.daily, daily[0].wind_speed, daily[0].humidity];
 }
 getData();
