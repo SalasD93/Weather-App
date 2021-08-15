@@ -55,38 +55,47 @@ async function getData() {
     const api_url2 = `https://api.openweathermap.org/data/2.5/weather?q=Tampa&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
     const response2 = await fetch(api_url2);
     const weather2 = await response2.json();
-
     console.log(weather2);
-    const city = weather2.name;
-    console.log(city);
-    const currentDate = moment.unix(weather2.dt).format("MM/DD/YYYY");
-    console.log(currentDate);
-    
-    const dispCity = document.createElement('h3');
-    const currentTemp = weather2.main.temp;
-    console.log(currentTemp);
-    const currentWind = weather2.wind.speed;
-    console.log(currentWind);
-    const currentHumidity = weather2.main.humidity;
-    console.log(currentHumidity);
     const lat = weather2.coord.lat;
     const lon = weather2.coord.lon;
 
+    
     // var currentDTGet = localStorage.getItem("current");
     const api_url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
     const response = await fetch(api_url);
     const weather = await response.json();
     console.log(weather);
     
+    // This section gets info for current weather and displays it
+    const city = weather2.name;
+    console.log(city);
+    const currentDate = moment.unix(weather2.dt).format("MM/DD/YYYY");
+    console.log(currentDate);
     const currentIcon = weather.current.weather[0].icon;
     console.log(currentIcon);
     const curIconUrl = `https://openweathermap.org/img/wn/${currentIcon}.png`;
     console.log(curIconUrl);
+    const curIconImg = document.createElement('img');
+    $(curIconImg).attr('src', curIconUrl);
+    const dispCity = document.createElement('h2');
+    $(dispCity).text(city + ' (' + currentDate + ')');
+    $(dispCity).append(curIconImg);
+    $(displayWeatherColDiv).append(dispCity);
+    const currentTemp = weather2.main.temp + '<br>';
+    console.log(currentTemp);
+    $(displayWeatherColDiv).append(currentTemp);
+    const currentWind = weather2.wind.speed + '<br>';
+    console.log(currentWind);
+    $(displayWeatherColDiv).append(currentWind);
+    const currentHumidity = weather2.main.humidity + '<br>';
+    console.log(currentHumidity);
+    $(displayWeatherColDiv).append(currentHumidity);
     const currentUV = weather.current.uvi;
     console.log(currentUV);
-    
+    $(displayWeatherColDiv).append(currentUV);
+
     // This loops through daily array for first 5 items / creates weather cards / displays relevant information
-    for (var i = 0; i < 5; i++) {
+    for (var i = 1; i < 6; i++) {
         const daily = weather.daily;
         // This converts unix date to standard date
         const date = moment.unix(daily[i].dt).format("MM/DD/YYYY");
