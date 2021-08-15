@@ -35,28 +35,7 @@ $(weatherCardColDiv).attr('style', "border: 5px solid blue;");
 // $(weatherCardColDiv).attr('style', `background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Burning_Yellow_Sunset.jpg/320px-Burning_Yellow_Sunset.jpg)`);
 var displayCardRowDiv = document.createElement('div');
 $(displayCardRowDiv).addClass("row justify-content-between");
-// $(displayWeatherRowDiv).attr('style', `background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Burning_Yellow_Sunset.jpg/320px-Burning_Yellow_Sunset.jpg)`);
-// var weatherCardA = document.createElement('div');
-// $(weatherCardA).attr('style', "height: 250px");
-// $(weatherCardA).attr('id', "card1");
-// $(weatherCardA).addClass("card col-sm-2");
-// var weatherCardB = document.createElement('div');
-// $(weatherCardB).attr('style', "height: 250px");
-// $(weatherCardB).attr('id', "card2");
-// $(weatherCardB).addClass("card col-sm-2");
-// var weatherCardC = document.createElement('div');
-// $(weatherCardC).attr('style', "height: 250px");
-// $(weatherCardC).attr('id', "card3");
-// $(weatherCardC).addClass("card col-sm-2");
-// var weatherCardD = document.createElement('div');
-// $(weatherCardD).attr('style', "height: 250px");
-// $(weatherCardD).attr('id', "card4");
-// $(weatherCardD).addClass("card col-sm-2");
-// var weatherCardE = document.createElement('div');
-// $(weatherCardE).attr('style', "height: 250px");
-// $(weatherCardE).attr('id', "card5");
-// $(weatherCardE).addClass("card col-sm-2");
-
+// This sections appends the above to the page
 body.append(navBar);
 body.append(container);
 $(container).append(rowDiv);
@@ -71,71 +50,83 @@ $(colDivDiv).append(displayRowDiv);
 $(displayRowDiv).append(displayWeatherColDiv);
 $(displayRowDiv).append(weatherCardColDiv);
 $(weatherCardColDiv).append(displayCardRowDiv);
-// $(displayCardRowDiv).append(weatherCardA);
-// $(displayCardRowDiv).append(weatherCardB);
-// $(displayCardRowDiv).append(weatherCardC);
-// $(displayCardRowDiv).append(weatherCardD);
-// $(displayCardRowDiv).append(weatherCardE);
-
-// var API_key = '54e653cb1cf1c02994d2f2adcdfa1673';
-// fetch(`https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={b0baeba9d3cacf1f845794a43c8d706b}`);
-// fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid={b0baeba9d3cacf1f845794a43c8d706b}`);
+// This function accesses the APIs and displays relevant information to the page
 async function getData() {
     const api_url2 = `https://api.openweathermap.org/data/2.5/weather?q=Tampa&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
     const response2 = await fetch(api_url2);
     const weather2 = await response2.json();
+
     console.log(weather2);
+    const city = weather2.name;
+    console.log(city);
+    const currentDate = moment.unix(weather2.dt).format("MM/DD/YYYY");
+    console.log(currentDate);
+    
+    const dispCity = document.createElement('h3');
+    const currentTemp = weather2.main.temp;
+    console.log(currentTemp);
+    const currentWind = weather2.wind.speed;
+    console.log(currentWind);
+    const currentHumidity = weather2.main.humidity;
+    console.log(currentHumidity);
+    const lat = weather2.coord.lat;
+    const lon = weather2.coord.lon;
+
     // var currentDTGet = localStorage.getItem("current");
-    const api_url = `https://api.openweathermap.org/data/2.5/onecall?lat=${weather2.coord.lat}&lon=${weather2.coord.lon}&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
+    const api_url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
     const response = await fetch(api_url);
     const weather = await response.json();
     console.log(weather);
-    // const currentDT = weather.current.dt;
-    // const currentDTSet = localStorage.setItem("current", currentDT);
-
-        // This loops through daily array for first 5 items / creates weather cards / displays relevant information
-        for (var i = 0; i < 5; i++) {
-            const daily = weather.daily;
-            // This converts unix date to standard date
-            const date = moment.unix(daily[i].dt).format("MM/DD/YYYY");
-            console.log(date);
-            const icon = daily[i].weather[0].icon;
-            console.log(icon);
-            const temp = daily[i].temp.day;
-            console.log(temp);
-            const windSpeed = daily[i].wind_speed;
-            console.log(windSpeed);
-            const humidity = daily[i].humidity;
-            console.log(humidity);
-            const iconUrl= `https://openweathermap.org/img/wn/${icon}.png`;
-            console.log(iconUrl);
-
-            var weatherCard = document.createElement('div');
-            // $(weatherCard).attr('style', "height: 250px");
-            $(weatherCard).addClass("card col-sm-2");
-            $(displayCardRowDiv).append(weatherCard);
-            var headerDate = document.createElement('h5');
-            $(headerDate).text(date);
-            $(headerDate).attr('style', "align-self: center");
-            $(weatherCard).append(headerDate);
-            var iconImg = document.createElement('img');
-            $(iconImg).attr('src', iconUrl);
-            $(iconImg).attr('width', "50%");
-            $(iconImg).attr('height', "50%");
-            // use similar attr for height and for width
-            $(weatherCard).append(iconImg);
-            var dispTemp = document.createElement('p');
-            $(dispTemp).text('Temp: ' + temp + '°F');
-            $(dispTemp).attr('style', "font-size: .9rem");
-            $(weatherCard).append(dispTemp);
-            var dispWind = document.createElement('p');
-            $(dispWind).text('Wind: ' + windSpeed + 'MPH');
-            $(dispWind).attr('style', "font-size: .9rem");
-            $(weatherCard).append(dispWind);
-            var dispHumidity = document.createElement('p');
-            $(dispHumidity).text('Humidity: ' + humidity + '%');
-            $(dispHumidity).attr('style', "font-size: .9rem");
-            $(weatherCard).append(dispHumidity);
-        }
+    
+    const currentIcon = weather.current.weather[0].icon;
+    console.log(currentIcon);
+    const curIconUrl = `https://openweathermap.org/img/wn/${currentIcon}.png`;
+    console.log(curIconUrl);
+    const currentUV = weather.current.uvi;
+    console.log(currentUV);
+    
+    // This loops through daily array for first 5 items / creates weather cards / displays relevant information
+    for (var i = 0; i < 5; i++) {
+        const daily = weather.daily;
+        // This converts unix date to standard date
+        const date = moment.unix(daily[i].dt).format("MM/DD/YYYY");
+        console.log(date);
+        const icon = daily[i].weather[0].icon;
+        console.log(icon);
+        const temp = daily[i].temp.day;
+        console.log(temp);
+        const windSpeed = daily[i].wind_speed;
+        console.log(windSpeed);
+        const humidity = daily[i].humidity;
+        console.log(humidity);
+        const iconUrl= `https://openweathermap.org/img/wn/${icon}.png`;
+        console.log(iconUrl);
+        // This section creates the weather cards and adds the content
+        var weatherCard = document.createElement('div');
+        // $(weatherCard).attr('style', "height: 250px");
+        $(weatherCard).addClass("card col-sm-2");
+        $(displayCardRowDiv).append(weatherCard);
+        var headerDate = document.createElement('h5');
+        $(headerDate).text(date);
+        $(headerDate).attr('style', "align-self: center");
+        $(weatherCard).append(headerDate);
+        var iconImg = document.createElement('img');
+        $(iconImg).attr('src', iconUrl);
+        $(iconImg).attr('width', "50%");
+        $(iconImg).attr('height', "50%");
+        $(weatherCard).append(iconImg);
+        var dispTemp = document.createElement('p');
+        $(dispTemp).text('Temp: ' + temp + '°F');
+        $(dispTemp).attr('style', "font-size: .9rem");
+        $(weatherCard).append(dispTemp);
+        var dispWind = document.createElement('p');
+        $(dispWind).text('Wind: ' + windSpeed + 'MPH');
+        $(dispWind).attr('style', "font-size: .9rem");
+        $(weatherCard).append(dispWind);
+        var dispHumidity = document.createElement('p');
+        $(dispHumidity).text('Humidity: ' + humidity + '%');
+        $(dispHumidity).attr('style', "font-size: .9rem");
+        $(weatherCard).append(dispHumidity);
+    }
 }
 getData();
