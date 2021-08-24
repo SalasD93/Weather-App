@@ -1,65 +1,6 @@
 var body = document.body;
 
-var navBar = document.createElement('nav');
-$(navBar).addClass("navbar navbar-expand-lg navbar-dark bg-dark justify-content-center");
-$(navBar).html(`<span class="navbar-brand mb-1 h1">What's the Weather Like?</span>`);
-
-var container = document.createElement('div');
-$(container).addClass("container");
-var rowDiv = document.createElement('div');
-$(rowDiv).addClass("row");
-var colDiv = document.createElement('div');
-$(colDiv).addClass("col-sm-3");
-var cityRowDiv = document.createElement('div');
-$(cityRowDiv).addClass("row");
-var citySearchColDiv = document.createElement('div');
-$(citySearchColDiv).addClass("col-sm-12");
-// this is for the city input box
-var citySearch = document.createElement('div');
-$(citySearch).html(`<p id="city-search">Search for a City:</p><input id="city-input" type="text"/><input id="add-city" value="SUBMIT" type="submit"/>`);
-
-// var cityInput = $(`<input id="city-input" type="text"></input>`);
-// $(cityInput).attr('id', "city-input");
-// $(cityInput).attr('type', "text");
-// var citySubmitBtn = document.createElement('button');
-// $(citySubmitBtn).attr('id', "add-city");
-var cityListColDiv = document.createElement('div');
-$(cityListColDiv).addClass("col-sm-12");
-var cityList = document.createElement("div");
-// $(cityList).addClass("buttons is-centered")
-$(cityList).attr('id', "city-list");
-$(cityList).attr('style', "border: 5px solid blue;");
-var colDivDiv = document.createElement('div');
-$(colDivDiv).addClass("col-sm-9");
-var displayRowDiv = document.createElement('div');
-// $(displayRowDiv).attr('style', `background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Burning_Yellow_Sunset.jpg/320px-Burning_Yellow_Sunset.jpg)`);
-$(displayRowDiv).addClass("row");
-var displayWeatherColDiv = document.createElement('div');
-$(displayWeatherColDiv).addClass("col-sm-12");
-$(displayWeatherColDiv).attr('style', "border: 5px solid blue; padding: 20px; font-size: 1.5rem;");
-var weatherCardColDiv = document.createElement('div');
-$(weatherCardColDiv).addClass("col-sm-12 pic");
-$(weatherCardColDiv).attr('style', "border: 5px solid blue;");
-// $(weatherCardColDiv).attr('style', `background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Burning_Yellow_Sunset.jpg/320px-Burning_Yellow_Sunset.jpg)`);
-var displayCardRowDiv = document.createElement('div');
-$(displayCardRowDiv).addClass("row justify-content-between");
-// This sections appends the above to the page
-body.append(navBar);
-body.append(container);
-$(container).append(rowDiv);
-$(rowDiv).append(colDiv);
-$(colDiv).append(cityRowDiv);
-$(cityRowDiv).append(citySearchColDiv);
-$(citySearchColDiv).append(citySearch);
-// $(citySearch).append(cityInput);
-// $(citySearch).append(citySubmitBtn);
-$(cityRowDiv).append(cityListColDiv);
-$(cityListColDiv).append(cityList);
-$(rowDiv).append(colDivDiv);
-$(colDivDiv).append(displayRowDiv);
-$(displayRowDiv).append(displayWeatherColDiv);
-$(displayRowDiv).append(weatherCardColDiv);
-$(weatherCardColDiv).append(displayCardRowDiv);
+var container = document.querySelector('.container');
 
 // This function accesses the APIs and displays relevant information to the page
 var citiesList = [];
@@ -98,8 +39,8 @@ function displayHistory(cityValue) {
 
 async function getData(cityValue) {
     // this is for api city
-    $(displayWeatherColDiv).html("");
-    $(displayCardRowDiv).html("");
+    $("#current-weather").html("");
+    $("#display-cards").html("");
     // var nameOfCity = localStorage.getItem(index);
     const api_url2 = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
     const response2 = await fetch(api_url2);
@@ -129,25 +70,25 @@ async function getData(cityValue) {
     const dispCity = document.createElement('h1');
     $(dispCity).text(city + ' (' + currentDate + ')');
     $(dispCity).append(curIconImg);
-    $(displayWeatherColDiv).append(dispCity);
+    $("#current-weather").append(dispCity);
     const currentTemp = 'Temp: ' + weather2.main.temp + '°F' + '<br>';
     // $(currentTemp).attr('style', "font-size: 2rem");
     console.log(currentTemp);
-    $(displayWeatherColDiv).append(currentTemp);
+    $("#current-weather").append(currentTemp);
     const currentWind = 'Wind: ' + weather2.wind.speed + 'MPH' + '<br>';
     // $(currentWind).attr('style', "font-size: 2rem");
     console.log(currentWind);
-    $(displayWeatherColDiv).append(currentWind);
+    $("#current-weather").append(currentWind);
     const currentHumidity = 'Humidity: ' + weather2.main.humidity + '%' + '<br>';
     // $(currentHumidity).attr('style', "font-size: 2rem");
     console.log(currentHumidity);
-    $(displayWeatherColDiv).append(currentHumidity);
+    $("#current-weather").append(currentHumidity);
     const currentUV = 'UV Index: ' + `<span id="uvi">${weather.current.uvi}</span>`;
     // $("uvi").css('background-color', "green");
     console.log(currentUV);
     const uviColor = document.getElementById("uvi");
     $(uviColor).attr('style', "background-color: green");
-    $(displayWeatherColDiv).append(currentUV);
+    $("#current-weather").append(currentUV);
 
     // need empty array for cities
         // every time a city is input a button is created and stored in LS
@@ -177,7 +118,7 @@ async function getData(cityValue) {
             var weatherCard = document.createElement('div');
             // $(weatherCard).attr('style', "height: 250px");
             $(weatherCard).addClass("card col-sm-2");
-            $(displayCardRowDiv).append(weatherCard);
+            $("#display-cards").append(weatherCard);
             var headerDate = document.createElement('h5');
             $(headerDate).text(date);
             $(headerDate).attr('style', "align-self: center");
