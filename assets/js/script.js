@@ -4,6 +4,7 @@ var container = document.querySelector('.container');
 
 // This function accesses the APIs and displays relevant information to the page
 var citiesList = [];
+var cityValue = "New York"
 $('#add-city').on('click', (event) => {
     var cityValue = $('#city-input').val();
     event.preventDefault();
@@ -11,10 +12,12 @@ $('#add-city').on('click', (event) => {
     console.log(citiesList);
     getData(cityValue);
     addCityToHistory(cityValue);
+    // displayHistory(cityValue);
 });
 // how to add something to front of list
 
 function addCityToHistory(cityValue) {
+    // citiesList = localStorage.getItem("searched");
     citiesList.unshift(cityValue);
     //add city value to city list
     //save to localStorage
@@ -27,8 +30,10 @@ function displayHistory(cityValue) {
     console.log(searchedCities);
         //loop for every city in list
         for (let c = 0; c < searchedCities.length && c < 5; c++) {
-            //make button
-            document.querySelector("#city-list").innerHTML += `<button type="button" class="btn btn-info" id="cityBtn">${searchedCities[c]}</button>`
+            if (searchedCities[c] !== '') {
+                //make button
+                document.querySelector("#city-list").innerHTML += `<button type="button" class="btn btn-info" id="cityBtn">${searchedCities[c]}</button>`;
+            }
         }
         //click is same as submit: getData with city name for button text
         $("#cityBtn").on('click', (cityValue) => {
@@ -41,6 +46,7 @@ async function getData(cityValue) {
     // this is for api city
     $("#current-weather").html("");
     $("#display-cards").html("");
+    cityValue = "New York";
     // var nameOfCity = localStorage.getItem(index);
     const api_url2 = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
     const response2 = await fetch(api_url2);
@@ -83,12 +89,24 @@ async function getData(cityValue) {
     // $(currentHumidity).attr('style', "font-size: 2rem");
     console.log(currentHumidity);
     $("#current-weather").append(currentHumidity);
-    const currentUV = 'UV Index: ' + `<span id="uvi">${weather.current.uvi}</span>`;
-    // $("uvi").css('background-color', "green");
+    var uviId = "";
+    if (weather.current.uvi <= 2) {
+        uviId = "uviG";
+    } else if (weather.current.uvi >= 3 && weather.current.uvi <= 5) {
+        uviId = "uviY";
+    } else if (weather.current.uvi >= 6 && weather.current.uvi <= 7) {
+        uviId = "uviO";
+    } else if (weather.current.uvi >= 8 && weather.current.uvi <= 10) {
+        uviId = "uviR";
+    }
+    const UVI = `<span id=${uviId}>${weather.current.uvi}</span>`;
+    const currentUV = 'UV Index: ' + UVI;
     console.log(currentUV);
-    const uviColor = document.getElementById("uvi");
-    $(uviColor).attr('style', "background-color: green");
     $("#current-weather").append(currentUV);
+
+    // $("uvi").css('background-color', "green");
+    // const uviColor = document.getElementById("uvi");
+    // $(uviColor).attr('style', "background-color: green");
 
     // need empty array for cities
         // every time a city is input a button is created and stored in LS

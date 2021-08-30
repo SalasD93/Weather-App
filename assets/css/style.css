@@ -1,3 +1,23 @@
 .navbar-brand {
     font-size: 2.5rem;
 }
+
+#uviG {
+    background: green;
+}
+
+#uviY {
+    background: yellow;
+}
+
+#uviO {
+    background: orange;
+}
+
+#uviR {
+    background: red;
+}
+
+/* .blue {
+    background: lightblue;
+} */
