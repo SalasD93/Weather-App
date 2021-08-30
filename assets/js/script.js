@@ -18,7 +18,9 @@ $('#add-city').on('click', (event) => {
 
 function addCityToHistory(cityValue) {
     //add city value to city list
-    citiesList.unshift(cityValue);
+    if (citiesList.indexOf(cityValue) === -1) {
+        citiesList.unshift(cityValue);
+    }
     //save to localStorage
     localStorage.setItem("searched", JSON.stringify(citiesList));
 }
@@ -139,7 +141,7 @@ async function getData(cityValue) {
         var iconImg = document.createElement('img');
         $(iconImg).attr('src', iconUrl);
         $(iconImg).attr('width', "50%");
-        $(iconImg).attr('height', "50%");
+        $(iconImg).attr('height', "30%");
         $(weatherCard).append(iconImg);
         var dispTemp = document.createElement('p');
         $(dispTemp).text('Temp: ' + temp + '°F');
