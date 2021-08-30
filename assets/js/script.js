@@ -3,7 +3,7 @@ var body = document.body;
 var container = document.querySelector('.container');
 
 // This function accesses the APIs and displays relevant information to the page
-var citiesList = [];
+var citiesList = JSON.parse(localStorage.getItem("searched")) || [];
 var cityValue = "New York";
 $('#add-city').on('click', (event) => {
     event.preventDefault();
@@ -12,7 +12,7 @@ $('#add-city').on('click', (event) => {
     console.log(citiesList);
     getData(cityValue);
     addCityToHistory(cityValue);
-    // displayHistory(cityValue);
+    displayHistory(cityValue);
 });
 // how to add something to front of list
 
@@ -20,33 +20,33 @@ function addCityToHistory(cityValue) {
     //add city value to city list
     citiesList.unshift(cityValue);
     //save to localStorage
-    localStorage.setItem("searched", citiesList);
+    localStorage.setItem("searched", JSON.stringify(citiesList));
 }
 
 function displayHistory(cityValue) {
     // get the list of cities from the history
-    const searchedCities = localStorage.getItem("searched").split(",");
-    console.log(searchedCities);
+    // const searchedCities = localStorage.getItem("searched").split(",");
+    console.log(citiesList);
         //loop for every city in list
-        for (let c = 0; c < searchedCities.length && c < 5; c++) {
-            if (searchedCities[c] !== '') {
+        document.querySelector("#city-list").innerHTML = "";
+        for (let c = 0; c < citiesList.length && c < 5; c++) {
+            if (citiesList[c] !== '') {
                 //make button
-                document.querySelector("#city-list").innerHTML += `<button type="button" class="btn btn-info" id="cityBtn">${searchedCities[c]}</button>`;
+                document.querySelector("#city-list").innerHTML += `<button type="button" class="btn btn-info mx-1 my-2 cityBtn">${citiesList[c]}</button>`;
             }
         }
-        //click is same as submit: getData with city name for button text
-        $("#cityBtn").on('click', (cityValue) => {
-            cityValue = $("#cityBtn").text()
-            getData(cityValue);
-        })
+        // cityBtn click is same as submit: getData with city name for button text
+        $(".cityBtn").on('click', (cityValue) => {
+            // cityValue = this.$(".cityBtn").text()
+            getData(cityValue.target.innerText);
+        });
 }
-
+// This function holds the api calls and displays the api information
 async function getData(cityValue) {
-    // this is for api city
+    // This empties the html to display new html instead of adding more
     $("#current-weather").html("");
     $("#display-cards").html("");
-    // cityValue = "New York";
-    // var nameOfCity = localStorage.getItem(index);
+    // This api gets information by city to pass to api for lat lon
     const api_url2 = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
     const response2 = await fetch(api_url2);
     const weather2 = await response2.json();
@@ -55,7 +55,7 @@ async function getData(cityValue) {
     const lon = weather2.coord.lon;
 
     
-    // var currentDTGet = localStorage.getItem("current");
+    // This api gets information based off lat lon information from city api
     const api_url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
     const response = await fetch(api_url);
     const weather = await response.json();
@@ -103,10 +103,6 @@ async function getData(cityValue) {
     console.log(currentUV);
     $("#current-weather").append(currentUV);
 
-    // $("uvi").css('background-color', "green");
-    // const uviColor = document.getElementById("uvi");
-    // $(uviColor).attr('style', "background-color: green");
-
     // need empty array for cities
         // every time a city is input a button is created and stored in LS
         // need to = button text to input val on click
@@ -116,48 +112,48 @@ async function getData(cityValue) {
         // $(question).text("What are you in the mood for?");
         
         // This loops through daily array for first 5 items / creates weather cards / displays relevant information
-        for (var i = 1; i < 6; i++) {
-            const daily = weather.daily;
-            // This converts unix date to standard date
-            const date = moment.unix(daily[i].dt).format("MM/DD/YYYY");
-            console.log(date);
-            const icon = daily[i].weather[0].icon;
-            console.log(icon);
-            const temp = daily[i].temp.day;
-            console.log(temp);
-            const windSpeed = daily[i].wind_speed;
-            console.log(windSpeed);
-            const humidity = daily[i].humidity;
-            console.log(humidity);
-            const iconUrl= `https://openweathermap.org/img/wn/${icon}.png`;
-            console.log(iconUrl);
-            // This section creates the weather cards and adds the content
-            var weatherCard = document.createElement('div');
-            // $(weatherCard).attr('style', "height: 250px");
-            $(weatherCard).addClass("card col-sm-2");
-            $("#display-cards").append(weatherCard);
-            var headerDate = document.createElement('h5');
-            $(headerDate).text(date);
-            $(headerDate).attr('style', "align-self: center");
-            $(weatherCard).append(headerDate);
-            var iconImg = document.createElement('img');
-            $(iconImg).attr('src', iconUrl);
-            $(iconImg).attr('width', "50%");
-            $(iconImg).attr('height', "50%");
-            $(weatherCard).append(iconImg);
-            var dispTemp = document.createElement('p');
-            $(dispTemp).text('Temp: ' + temp + '°F');
-            $(dispTemp).attr('style', "font-size: .9rem");
-            $(weatherCard).append(dispTemp);
-            var dispWind = document.createElement('p');
-            $(dispWind).text('Wind: ' + windSpeed + 'MPH');
-            $(dispWind).attr('style', "font-size: .9rem");
-            $(weatherCard).append(dispWind);
-            var dispHumidity = document.createElement('p');
-            $(dispHumidity).text('Humidity: ' + humidity + '%');
-            $(dispHumidity).attr('style', "font-size: .9rem");
-            $(weatherCard).append(dispHumidity);
-        }
+    for (var i = 1; i < 6; i++) {
+        const daily = weather.daily;
+        // This converts unix date to standard date
+        const date = moment.unix(daily[i].dt).format("MM/DD/YYYY");
+        console.log(date);
+        const icon = daily[i].weather[0].icon;
+        console.log(icon);
+        const temp = daily[i].temp.day;
+        console.log(temp);
+        const windSpeed = daily[i].wind_speed;
+        console.log(windSpeed);
+        const humidity = daily[i].humidity;
+        console.log(humidity);
+        const iconUrl= `https://openweathermap.org/img/wn/${icon}.png`;
+        console.log(iconUrl);
+        // This section creates the weather cards and adds the content
+        var weatherCard = document.createElement('div');
+        // $(weatherCard).attr('style', "height: 250px");
+        $(weatherCard).addClass("card col-sm-2");
+        $("#display-cards").append(weatherCard);
+        var headerDate = document.createElement('h5');
+        $(headerDate).text(date);
+        $(headerDate).attr('style', "align-self: center");
+        $(weatherCard).append(headerDate);
+        var iconImg = document.createElement('img');
+        $(iconImg).attr('src', iconUrl);
+        $(iconImg).attr('width', "50%");
+        $(iconImg).attr('height', "50%");
+        $(weatherCard).append(iconImg);
+        var dispTemp = document.createElement('p');
+        $(dispTemp).text('Temp: ' + temp + '°F');
+        $(dispTemp).attr('style', "font-size: .9rem");
+        $(weatherCard).append(dispTemp);
+        var dispWind = document.createElement('p');
+        $(dispWind).text('Wind: ' + windSpeed + 'MPH');
+        $(dispWind).attr('style', "font-size: .9rem");
+        $(weatherCard).append(dispWind);
+        var dispHumidity = document.createElement('p');
+        $(dispHumidity).text('Humidity: ' + humidity + '%');
+        $(dispHumidity).attr('style', "font-size: .9rem");
+        $(weatherCard).append(dispHumidity);
+    }
     }
     displayHistory();
     getData(cityValue);
