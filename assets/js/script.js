@@ -18,9 +18,11 @@ $('#add-city').on('click', (event) => {
 
 function addCityToHistory(cityValue) {
     //add city value to city list
+    // This prevents duplicates in array for buttons
     if (citiesList.indexOf(cityValue) === -1) {
         citiesList.unshift(cityValue);
     }
+    citiesList.splice(5);
     //save to localStorage
     localStorage.setItem("searched", JSON.stringify(citiesList));
 }
