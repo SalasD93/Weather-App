@@ -4,10 +4,10 @@ var container = document.querySelector('.container');
 
 // This function accesses the APIs and displays relevant information to the page
 var citiesList = [];
-var cityValue = "New York"
+var cityValue = "New York";
 $('#add-city').on('click', (event) => {
-    var cityValue = $('#city-input').val();
     event.preventDefault();
+    cityValue = $('#city-input').val();
     console.log(cityValue);
     console.log(citiesList);
     getData(cityValue);
@@ -17,9 +17,8 @@ $('#add-city').on('click', (event) => {
 // how to add something to front of list
 
 function addCityToHistory(cityValue) {
-    // citiesList = localStorage.getItem("searched");
-    citiesList.unshift(cityValue);
     //add city value to city list
+    citiesList.unshift(cityValue);
     //save to localStorage
     localStorage.setItem("searched", citiesList);
 }
@@ -46,7 +45,7 @@ async function getData(cityValue) {
     // this is for api city
     $("#current-weather").html("");
     $("#display-cards").html("");
-    cityValue = "New York";
+    // cityValue = "New York";
     // var nameOfCity = localStorage.getItem(index);
     const api_url2 = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&units=imperial&exclude=minutely&appid=54e653cb1cf1c02994d2f2adcdfa1673`;
     const response2 = await fetch(api_url2);
@@ -161,4 +160,4 @@ async function getData(cityValue) {
         }
     }
     displayHistory();
-    // getData();
+    getData(cityValue);
