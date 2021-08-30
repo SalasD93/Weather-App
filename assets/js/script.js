@@ -22,6 +22,7 @@ function addCityToHistory(cityValue) {
     if (citiesList.indexOf(cityValue) === -1) {
         citiesList.unshift(cityValue);
     }
+    // Added to prevent inifinite array / limit button ouputs / readd city to recent searches due to indexOf preventing addition of dupicates
     citiesList.splice(5);
     //save to localStorage
     localStorage.setItem("searched", JSON.stringify(citiesList));
@@ -33,7 +34,7 @@ function displayHistory(cityValue) {
     console.log(citiesList);
         //loop for every city in list
         document.querySelector("#city-list").innerHTML = "";
-        for (let c = 0; c < citiesList.length && c < 5; c++) {
+        for (let c = 0; c < citiesList.length; c++) {
             if (citiesList[c] !== '') {
                 //make button
                 document.querySelector("#city-list").innerHTML += `<button type="button" class="btn btn-info mx-1 my-2 cityBtn">${citiesList[c]}</button>`;
