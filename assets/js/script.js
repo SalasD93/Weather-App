@@ -4,7 +4,7 @@ var container = document.querySelector('.container');
 
 // This function accesses the APIs and displays relevant information to the page
 var citiesList = JSON.parse(localStorage.getItem("searched")) || [];
-var cityValue = "New York";
+var cityValue = citiesList[0] || "New York";
 $('#add-city').on('click', (event) => {
     event.preventDefault();
     cityValue = $('#city-input').val();
