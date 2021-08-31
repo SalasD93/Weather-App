@@ -1,0 +1,63 @@
+body {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    margin:0;
+}
+
+body::before {
+    content: "";
+    height: 110vh;
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Carved_by_Massive_Stars.jpg/1200px-Carved_by_Massive_Stars.jpg);
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px; 
+    opacity: 0.5;
+}
+
+.navbar-brand {
+    font-size: 3rem;
+    text-decoration: white;
+}
+
+#navbar {
+    background-color: rgb(135, 206, 250);
+    color: white;
+    margin-bottom: 5%;
+    font-size: 3rem;
+}
+
+#city-input {
+    width: 96%;
+}
+
+#uviG {
+    background: rgb(0, 128, 0);
+    border-radius: 5px;
+    padding: 1px 4px;
+}
+
+#uviY {
+    background: rgb(255, 255, 0);
+    border-radius: 5px;
+    padding: 1px 4px;
+}
+
+#uviO {
+    background: rgb(255, 165, 0);
+    border-radius: 5px;
+    padding: 1px 4px;
+}
+
+#uviR {
+    background: rgb(255, 0, 0);
+    border-radius: 5px;
+    padding: 1px 4px;
+}
+
+.cityBtn {
+    width: 96%;
+}
