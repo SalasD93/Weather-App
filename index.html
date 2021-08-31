@@ -9,8 +9,8 @@
     <title>What's the Weather Like?</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
-        <span class="navbar-brand mb-1 h1">What's the Weather Like?</span>
+    <nav class="navbar navbar-expand-lg navbar-dark justify-content-center" id="navbar">
+        <span class="mb-1 h1">What's the Weather Like?</span>
     </nav>
     <div class="container">
         <div class="row">
@@ -18,13 +18,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <form action="#" autocomplete="off">
-                            <p id="city-search">Search for a City:</p>
+                            <h4 id="city-search">Search for a City:</h4>
                             <input id="city-input" type="text"/>
-                            <input id="add-city" style="margin-top: 0.5rem;" value="SUBMIT" type="submit"/>
+                            <input class="btn btn-success" id="add-city" style="margin-top: 0.5rem; width: 96%" value="SUBMIT" type="submit"/>
                         </form>
                     </div>
                     <div class="col-sm-12">
-                        <div id="city-list" style="border: 5px solid blue; margin-top: 0.5rem;">
+                        <div id="city-list" style="border-top: 2px solid gray; margin-top: 0.5rem;">
                             
                         </div>
                     </div>
@@ -32,11 +32,11 @@
             </div>
             <div class="col-sm-9">
                 <div class="row">
-                    <div class="col-sm-12" id="current-weather" style="border: 5px solid blue; padding: 20px; font-size: 1.5rem;">
+                    <div class="col-sm-12" id="current-weather" style="border: 5px solid rgb(135, 206, 250); padding: 20px; font-size: 1.5rem;">
 
                     </div>
                     <h4>5 Day Forecast:</h4>
-                    <div class="col-sm-12 pic" style="border: 5px solid blue; display: flex; flex-flow: column wrap;">
+                    <div class="col-sm-12 pic" style="display: flex; flex-flow: column wrap;">
                         <div class="row justify-content-between" id="display-cards">
 
                         </div>

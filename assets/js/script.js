@@ -134,6 +134,7 @@ async function getData(cityValue) {
         console.log(iconUrl);
         // This section creates the weather cards and adds the content
         var weatherCard = document.createElement('div');
+        $(weatherCard).attr('style', "opacity: 0.65");
         // $(weatherCard).attr('style', "height: 250px");
         $(weatherCard).addClass("card col-sm-2");
         $("#display-cards").append(weatherCard);
@@ -144,7 +145,8 @@ async function getData(cityValue) {
         var iconImg = document.createElement('img');
         $(iconImg).attr('src', iconUrl);
         $(iconImg).attr('width', "50%");
-        $(iconImg).attr('height', "30%");
+        $(iconImg).attr('height', "25%");
+        $(iconImg).attr('style', "align-self: center");
         $(weatherCard).append(iconImg);
         var dispTemp = document.createElement('p');
         $(dispTemp).text('Temp: ' + temp + '°F');
@@ -159,6 +161,6 @@ async function getData(cityValue) {
         $(dispHumidity).attr('style', "font-size: .9rem");
         $(weatherCard).append(dispHumidity);
     }
-    }
+}
     displayHistory();
     getData(cityValue);
