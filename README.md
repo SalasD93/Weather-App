@@ -22,11 +22,11 @@ For challenge 6 of the UM Coding Bootcamp, I was tasked with creating a note wea
 
 ## Mock-Up
 
-![Homework Screenshot1](https://github.com/SalasD93/make-an-express-note/blob/main/assets/images/Ch6-Screenshot1.png?raw=true)
-![Homework Screenshot2](https://github.com/SalasD93/make-an-express-note/blob/main/assets/images/Ch6-Screenshot2.png?raw=true)
-![Homework Screenshot3](https://github.com/SalasD93/make-an-express-note/blob/main/assets/images/Ch6-Screenshot3.png?raw=true)
-![Homework Screenshot4](https://github.com/SalasD93/make-an-express-note/blob/main/assets/images/Ch6-Screenshot4.png?raw=true)
-![Homework Screenshot5](https://github.com/SalasD93/make-an-express-note/blob/main/assets/images/Ch6-Screenshot5.png?raw=true)
+![Homework Screenshot1](https://github.com/SalasD93/whats-the-weather-like/blob/main/assets/images/Ch6-Screenshot1.png?raw=true)
+![Homework Screenshot2](https://github.com/SalasD93/whats-the-weather-like/blob/main/assets/images/Ch6-Screenshot2.png?raw=true)
+![Homework Screenshot3](https://github.com/SalasD93/whats-the-weather-like/blob/main/assets/images/Ch6-Screenshot3.png?raw=true)
+![Homework Screenshot4](https://github.com/SalasD93/whats-the-weather-like/blob/main/assets/images/Ch6-Screenshot4.png?raw=true)
+![Homework Screenshot5](https://github.com/SalasD93/whats-the-weather-like/blob/main/assets/images/Ch6-Screenshot5.png?raw=true)
 
 
 ## Built-With
