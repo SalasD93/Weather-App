@@ -2,7 +2,7 @@ body {
     text-align: center;
     position: relative;
     width: 100%;
-    margin:0;
+    margin: 0;
 }
 
 body::before {
@@ -10,7 +10,7 @@ body::before {
     height: 110vh;
     background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Carved_by_Massive_Stars.jpg/1200px-Carved_by_Massive_Stars.jpg);
     background-size: cover;
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     bottom: 0px;
