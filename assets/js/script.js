@@ -113,6 +113,7 @@ async function getData(cityValue) {
         $(headerDate).attr('style', "align-self: center");
         $(weatherCard).append(headerDate);
         var iconImg = document.createElement('img');
+        $(iconImg).attr('id', "iconImg")
         $(iconImg).attr('src', iconUrl);
         $(iconImg).attr('width', "50%");
         $(iconImg).attr('height', "25%");

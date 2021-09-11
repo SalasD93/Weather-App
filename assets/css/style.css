@@ -61,3 +61,10 @@ body::before {
 .cityBtn {
     width: 96%;
 }
+
+@media screen and (max-width: 475px) {
+    #iconImg {
+        width: 20%;
+        height: 30%;
+    }
+}
