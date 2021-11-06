@@ -2,7 +2,7 @@
 
 ## Description
 
-For challenge 6 of the UM Coding Bootcamp, I was tasked with creating a note weather dashboard application that can be used to check the current weather and 5 day forecast for a searched city. This application will use dynamically generated HTML and CSS from JavaScript.
+I a weather dashboard application that can be used to check the current weather and 5 day forecast for a searched city. This application uses dynamically generated HTML and CSS from JavaScript. When a user loads the application, the weather preloads for New York City. When a user inputs a zip code, that zip code is submitted in an API fetch call and is displayed on the page. The most recent 5 searches are saved in buttons for the user to click and check the weather. Local storage saves this data to be used the next time the user loads the application.
 
 ## Table of Contents
 
